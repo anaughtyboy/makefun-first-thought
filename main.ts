@@ -13,6 +13,11 @@ if (word.length < 1 || word.length > 24) {
 if (!/^[^\s]+$/.test(word)) {
   throw new Error("entry must be exactly one word with no whitespace");
 }
+// One word means letters only: digits or punctuation would make it a
+// code or a label, not the first word that came to mind.
+if (!/^[A-Za-z]+$/.test(word)) {
+  throw new Error("entry must be letters only");
+}
 
 const outDir = process.env.MAKEFUN_OUTPUT_DIR ?? "/output";
 mkdirSync(outDir, { recursive: true });
